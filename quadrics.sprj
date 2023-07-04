@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+<project version="2">
+	<pipeline>
+		<pass name="Simple" type="shader" active="true" patchverts="1">
+			<shader type="vs" path="shaders\quadrics_SimpleVS.glsl" entry="main" />
+			<shader type="ps" path="shaders\quadrics_SimplePS.glsl" entry="main" />
+			<inputlayout>
+				<item value="Position" semantic="POSITION" />
+				<item value="Normal" semantic="NORMAL" />
+				<item value="Texcoord" semantic="TEXCOORD0" />
+			</inputlayout>
+			<rendertexture />
+			<items>
+				<item name="Sphere with hole" type="geometry">
+					<type>Cube</type>
+					<width>1</width>
+					<height>1</height>
+					<depth>1</depth>
+					<topology>TriangleList</topology>
+				</item>
+				<item name="Inverted sphere" type="geometry">
+					<type>Cube</type>
+					<width>1</width>
+					<height>1</height>
+					<depth>1</depth>
+					<topology>TriangleList</topology>
+				</item>
+				<item name="Base" type="geometry">
+					<type>Cube</type>
+					<width>1</width>
+					<height>1</height>
+					<depth>1</depth>
+					<scaleX>0.300000012</scaleX>
+					<scaleY>2</scaleY>
+					<scaleZ>0.300000012</scaleZ>
+					<y>-1.44594371</y>
+					<topology>TriangleList</topology>
+				</item>
+				<item name="Base Caps" type="geometry">
+					<type>Cube</type>
+					<width>1</width>
+					<height>1</height>
+					<depth>1</depth>
+					<scaleX>0.300000012</scaleX>
+					<scaleY>2</scaleY>
+					<scaleZ>0.284000009</scaleZ>
+					<y>-1.44599998</y>
+					<topology>TriangleList</topology>
+				</item>
+			</items>
+			<itemvalues>
+				<value variable="uSurfaceID" for="Sphere with hole">
+					<row>
+						<value>0</value>
+					</row>
+				</value>
+				<value variable="uBoundsID" for="Sphere with hole">
+					<row>
+						<value>1</value>
+					</row>
+				</value>
+				<value variable="uSurfaceID" for="Inverted sphere">
+					<row>
+						<value>1</value>
+					</row>
+				</value>
+				<value variable="uBoundsID" for="Inverted sphere">
+					<row>
+						<value>0</value>
+					</row>
+				</value>
+				<value variable="uSurfaceID" for="Base">
+					<row>
+						<value>2</value>
+					</row>
+				</value>
+				<value variable="uBoundsID" for="Base">
+					<row>
+						<value>3</value>
+					</row>
+				</value>
+				<value variable="uAlbedoColor" for="Sphere with hole">
+					<row>
+						<value>0.5</value>
+						<value>0.5</value>
+						<value>0.5</value>
+					</row>
+				</value>
+				<value variable="uSpecularity" for="Sphere with hole">
+					<row>
+						<value>0.5</value>
+					</row>
+				</value>
+				<value variable="uSpecularExponent" for="Sphere with hole">
+					<row>
+						<value>100</value>
+					</row>
+				</value>
+				<value variable="uAlbedoColor" for="Inverted sphere">
+					<row>
+						<value>0.100000001</value>
+						<value>0.100000001</value>
+						<value>0.100000001</value>
+					</row>
+				</value>
+				<value variable="uSpecularity" for="Inverted sphere">
+					<row>
+						<value>0.100000001</value>
+					</row>
+				</value>
+				<value variable="uSpecularExponent" for="Inverted sphere">
+					<row>
+						<value>100</value>
+					</row>
+				</value>
+				<value variable="uAlbedoColor" for="Base">
+					<row>
+						<value>0.5</value>
+						<value>0.5</value>
+						<value>0.5</value>
+					</row>
+				</value>
+				<value variable="uSpecularity" for="Base">
+					<row>
+						<value>0.5</value>
+					</row>
+				</value>
+				<value variable="uSpecularExponent" for="Base">
+					<row>
+						<value>100</value>
+					</row>
+				</value>
+				<value variable="uSurfaceID" for="Base Caps">
+					<row>
+						<value>3</value>
+					</row>
+				</value>
+				<value variable="uBoundsID" for="Base Caps">
+					<row>
+						<value>2</value>
+					</row>
+				</value>
+				<value variable="uAlbedoColor" for="Base Caps">
+					<row>
+						<value>0.5</value>
+						<value>0.5</value>
+						<value>0.5</value>
+					</row>
+				</value>
+				<value variable="uSpecularity" for="Base Caps">
+					<row>
+						<value>0.5</value>
+					</row>
+				</value>
+				<value variable="uSpecularExponent" for="Base Caps">
+					<row>
+						<value>100</value>
+					</row>
+				</value>
+			</itemvalues>
+			<variables>
+				<variable type="float4x4" name="matVP" system="ViewProjection" />
+				<variable type="float4x4" name="matGeo" system="GeometryTransform" />
+				<variable type="int" name="uSurfaceID">
+					<row>
+						<value>0</value>
+					</row>
+				</variable>
+				<variable type="int" name="uBoundsID">
+					<row>
+						<value>0</value>
+					</row>
+				</variable>
+				<variable type="float3" name="uAlbedoColor">
+					<row>
+						<value>0</value>
+						<value>0</value>
+						<value>0</value>
+					</row>
+				</variable>
+				<variable type="float" name="uSpecularity">
+					<row>
+						<value>0</value>
+					</row>
+				</variable>
+				<variable type="float" name="uSpecularExponent">
+					<row>
+						<value>0</value>
+					</row>
+				</variable>
+			</variables>
+			<macros />
+		</pass>
+	</pipeline>
+	<objects />
+	<cameras />
+	<settings>
+		<entry type="pinned" name="uSurfaceID" owner="Simple" />
+		<entry type="pinned" name="uBoundsID" owner="Simple" />
+		<entry type="pinned" name="uAlbedoColor" owner="Simple" />
+		<entry type="pinned" name="uSpecularity" owner="Simple" />
+		<entry type="pinned" name="uSpecularExponent" owner="Simple" />
+		<entry type="camera" fp="false">
+			<distance>8</distance>
+			<pitch>16</pitch>
+			<yaw>139</yaw>
+			<roll>360</roll>
+		</entry>
+		<entry type="clearcolor" r="0" g="0" b="0" a="0" />
+		<entry type="usealpha" val="false" />
+	</settings>
+	<plugindata />
+</project>
