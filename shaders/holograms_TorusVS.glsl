@@ -3,11 +3,16 @@
 uniform mat4 matVP;
 uniform mat4 matGeo;
 
+uniform vec3 uCamPos;
+
 layout (location = 0) in vec3 pos;
 
 out vec4 rayOrigin;
-out vec4 rayDir;
+out vec3 rayDir;
 
 void main() {
-   gl_Position = matVP * matGeo * vec4(pos, 1);
+   rayOrigin = vec4(pos, 1);
+   vec4 posWorld = matGeo * vec4(pos, 1);
+   rayDir = inverse(mat3(matGeo)) * (posWorld.xyz / posWorld.w - uCamPos);
+   gl_Position = matVP * matGeo * rayOrigin;
 }

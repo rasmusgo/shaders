@@ -191,10 +191,7 @@
 						<value>100</value>
 					</row>
 				</variable>
-				<variable type="float2" name="uResolution" system="ViewportSize" />
 				<variable type="float3" name="uCamPos" system="CameraPosition3" />
-				<variable type="float3" name="uCamDir" system="CameraDirection3" />
-				<variable type="float4x4" name="uCam" system="View" />
 			</variables>
 			<macros />
 		</pass>
