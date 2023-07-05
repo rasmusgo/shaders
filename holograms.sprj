@@ -83,23 +83,6 @@
 						<value>3</value>
 					</row>
 				</value>
-				<value variable="uAlbedoColor" for="Sphere with hole">
-					<row>
-						<value>0.5</value>
-						<value>0.5</value>
-						<value>0.5</value>
-					</row>
-				</value>
-				<value variable="uSpecularity" for="Sphere with hole">
-					<row>
-						<value>0.5</value>
-					</row>
-				</value>
-				<value variable="uSpecularExponent" for="Sphere with hole">
-					<row>
-						<value>100</value>
-					</row>
-				</value>
 				<value variable="uAlbedoColor" for="Inverted sphere">
 					<row>
 						<value>0.100000001</value>
@@ -112,28 +95,6 @@
 						<value>0.100000001</value>
 					</row>
 				</value>
-				<value variable="uSpecularExponent" for="Inverted sphere">
-					<row>
-						<value>100</value>
-					</row>
-				</value>
-				<value variable="uAlbedoColor" for="Base">
-					<row>
-						<value>0.5</value>
-						<value>0.5</value>
-						<value>0.5</value>
-					</row>
-				</value>
-				<value variable="uSpecularity" for="Base">
-					<row>
-						<value>0.5</value>
-					</row>
-				</value>
-				<value variable="uSpecularExponent" for="Base">
-					<row>
-						<value>100</value>
-					</row>
-				</value>
 				<value variable="uSurfaceID" for="Base Caps">
 					<row>
 						<value>3</value>
@@ -142,23 +103,6 @@
 				<value variable="uBoundsID" for="Base Caps">
 					<row>
 						<value>2</value>
-					</row>
-				</value>
-				<value variable="uAlbedoColor" for="Base Caps">
-					<row>
-						<value>0.5</value>
-						<value>0.5</value>
-						<value>0.5</value>
-					</row>
-				</value>
-				<value variable="uSpecularity" for="Base Caps">
-					<row>
-						<value>0.5</value>
-					</row>
-				</value>
-				<value variable="uSpecularExponent" for="Base Caps">
-					<row>
-						<value>100</value>
 					</row>
 				</value>
 			</itemvalues>
@@ -177,19 +121,19 @@
 				</variable>
 				<variable type="float3" name="uAlbedoColor">
 					<row>
-						<value>0</value>
-						<value>0</value>
-						<value>0</value>
+						<value>0.5</value>
+						<value>0.5</value>
+						<value>0.5</value>
 					</row>
 				</variable>
 				<variable type="float" name="uSpecularity">
 					<row>
-						<value>0</value>
+						<value>0.5</value>
 					</row>
 				</variable>
 				<variable type="float" name="uSpecularExponent">
 					<row>
-						<value>0</value>
+						<value>100</value>
 					</row>
 				</variable>
 			</variables>
