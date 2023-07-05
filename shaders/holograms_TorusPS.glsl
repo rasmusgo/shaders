@@ -9,7 +9,7 @@ uniform float uSpecularity = 0.5;
 uniform float uSpecularExponent = 100;
 
 in vec4 rayOrigin;
-in vec4 cameraPos;
+in vec4 rayDir;
 
 out vec4 outColor;
 
@@ -22,6 +22,12 @@ const mat4 quadrics[1] = mat4[](
     0.0, 0.0, 0.0, 0.0,
     0.0, -1.0, 0.0, 0.0)
 );
+
+const vec3 lightDir1 = normalize(vec3(1.0, 1.0, 1.0));
+const vec3 lightDir2 = normalize(vec3(-1.0, 1.0, 1.0));
+const vec3 lightColor1 = vec3(1.0, 1.0, 0.5);
+const vec3 lightColor2 = vec3(1.0, 0.5, 0.5);
+const vec3 ambientColor = vec3(0.1, 0.15, 0.25);
 
 // From https://iquilezles.org/articles/intersectors/
 // f(x) = (|x|² + R² - r²)² - 4·R²·|xy|² = 0
@@ -37,12 +43,12 @@ float torusIntersect( in vec3 ro, in vec3 rd, in vec2 tor )
 
     // bounding sphere
     {
-	float h = n*n - m + (tor.x+tor.y)*(tor.x+tor.y);
-	if( h<0.0 ) return -1.0;
-	//float t = -n-sqrt(h); // could use this to compute intersections from ro+t*rd
+        float h = n*n - m + (tor.x+tor.y)*(tor.x+tor.y);
+        if( h<0.0 ) return -1.0;
+        //float t = -n-sqrt(h); // could use this to compute intersections from ro+t*rd
     }
 
-	// find quartic equation
+    // find quartic equation
     float k = (m - ra2 - Ra2)/2.0;
     float k3 = n;
     float k2 = n*n + Ra2*rd.z*rd.z + k;
@@ -60,7 +66,7 @@ float torusIntersect( in vec3 ro, in vec3 rd, in vec2 tor )
         k2 = k2*k0;
         k3 = k3*k0;
     }
-	#endif
+        #endif
 
     float c2 = 2.0*k2 - 3.0*k3*k3;
     float c1 = k3*(k3*k3 - k2) + k1;
@@ -79,7 +85,7 @@ float torusIntersect( in vec3 ro, in vec3 rd, in vec2 tor )
     float z = 0.0;
     if( h < 0.0 )
     {
-    	// 4 intersections
+        // 4 intersections
         float sQ = sqrt(Q);
         z = 2.0*sQ*cos( acos(R/(sQ*Q)) / 3.0 );
     }
@@ -138,20 +144,13 @@ vec3 torusNormal( in vec3 pos, vec2 tor )
     return normalize( pos*(dot(pos,pos)-tor.y*tor.y - tor.x*tor.x*vec3(1.0,1.0,-1.0)));
 }
 
-const vec3 lightDir1 = normalize(vec3(1.0, 1.0, 1.0));
-const vec3 lightDir2 = normalize(vec3(-1.0, 1.0, 1.0));
-const vec3 lightColor1 = vec3(1.0, 1.0, 0.5);
-const vec3 lightColor2 = vec3(1.0, 0.5, 0.5);
-const vec3 ambientColor = vec3(0.1, 0.15, 0.25);
-
 void main()
 {
     vec2 torus = vec2(0.25, 0.05);
 
     // Find ray-torus intersection, if any
     vec3 ro = rayOrigin.xyz / rayOrigin.w;
-    vec3 cp = cameraPos.xyz / cameraPos.w;
-    vec3 rd = normalize(ro - cp);
+    vec3 rd = normalize(rayDir.xyz);
     float t = torusIntersect(ro, rd, torus);
 
     // Discard stuff behind us
@@ -168,7 +167,7 @@ void main()
 
     // Discard fragments that are out of bounds
     if (boundsValue > 0.0) {
-	    discard;
+        discard;
     }
 
     // Compute depth

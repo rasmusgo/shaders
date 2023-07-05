@@ -10,7 +10,7 @@ uniform float uSpecularity = 0.5;
 uniform float uSpecularExponent = 100;
 
 in vec4 rayOrigin;
-in vec4 cameraPos;
+in vec4 rayDir;
 
 out vec4 outColor;
 
@@ -50,8 +50,6 @@ void main()
     // Select quadric parameters for surface and bounds.
     mat4 surfaceQ = quadrics[uSurfaceID];
     mat4 boundsQ = quadrics[uBoundsID];
-
-    vec4 rayDir = vec4(normalize(rayOrigin.xyz - cameraPos.xyz), 0.0);
 
     // Find ray-quadric intersection, if any
     float a = dot(rayDir, surfaceQ * rayDir);
