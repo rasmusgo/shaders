@@ -6,8 +6,6 @@
 			<shader type="ps" path="shaders\holograms_QuadricsPS.glsl" entry="main" />
 			<inputlayout>
 				<item value="Position" semantic="POSITION" />
-				<item value="Normal" semantic="NORMAL" />
-				<item value="Texcoord" semantic="TEXCOORD0" />
 			</inputlayout>
 			<rendertexture />
 			<items>
@@ -16,6 +14,7 @@
 					<width>1</width>
 					<height>1</height>
 					<depth>1</depth>
+					<x>0.5</x>
 					<topology>TriangleList</topology>
 				</item>
 				<item name="Inverted sphere" type="geometry">
@@ -23,6 +22,7 @@
 					<width>1</width>
 					<height>1</height>
 					<depth>1</depth>
+					<x>0.5</x>
 					<topology>TriangleList</topology>
 				</item>
 				<item name="Base" type="geometry">
@@ -30,10 +30,11 @@
 					<width>1</width>
 					<height>1</height>
 					<depth>1</depth>
-					<scaleX>0.300000012</scaleX>
+					<scaleX>0.3</scaleX>
 					<scaleY>2</scaleY>
-					<scaleZ>0.300000012</scaleZ>
-					<y>-1.44594371</y>
+					<scaleZ>0.3</scaleZ>
+					<x>-0.5</x>
+					<y>-0.5</y>
 					<topology>TriangleList</topology>
 				</item>
 				<item name="Base Caps" type="geometry">
@@ -41,10 +42,11 @@
 					<width>1</width>
 					<height>1</height>
 					<depth>1</depth>
-					<scaleX>0.300000012</scaleX>
+					<scaleX>0.3</scaleX>
 					<scaleY>2</scaleY>
-					<scaleZ>0.284000009</scaleZ>
-					<y>-1.44599998</y>
+					<scaleZ>0.3</scaleZ>
+					<x>-0.5</x>
+					<y>-0.5</y>
 					<topology>TriangleList</topology>
 				</item>
 			</items>
@@ -98,14 +100,14 @@
 				</value>
 				<value variable="uAlbedoColor" for="Inverted sphere">
 					<row>
-						<value>0.100000001</value>
-						<value>0.100000001</value>
-						<value>0.100000001</value>
+						<value>0.1</value>
+						<value>0.1</value>
+						<value>0.1</value>
 					</row>
 				</value>
 				<value variable="uSpecularity" for="Inverted sphere">
 					<row>
-						<value>0.100000001</value>
+						<value>0.1</value>
 					</row>
 				</value>
 				<value variable="uSpecularExponent" for="Inverted sphere">
@@ -196,8 +198,6 @@
 			<shader type="ps" path="shaders\holograms_TorusPS.glsl" entry="main" />
 			<inputlayout>
 				<item value="Position" semantic="POSITION" />
-				<item value="Normal" semantic="NORMAL" />
-				<item value="Texcoord" semantic="TEXCOORD0" />
 			</inputlayout>
 			<rendertexture />
 			<items>
@@ -206,30 +206,17 @@
 					<width>1</width>
 					<height>1</height>
 					<depth>1</depth>
+					<scaleX>2</scaleX>
+					<scaleY>2</scaleY>
+					<scaleZ>2</scaleZ>
+					<y>0.5</y>
 					<topology>TriangleList</topology>
 				</item>
 			</items>
 			<itemvalues>
 				<value variable="uBoundsID" for="Neck">
 					<row>
-						<value>1</value>
-					</row>
-				</value>
-				<value variable="uAlbedoColor" for="Neck">
-					<row>
-						<value>0.5</value>
-						<value>0.5</value>
-						<value>0.5</value>
-					</row>
-				</value>
-				<value variable="uSpecularity" for="Neck">
-					<row>
-						<value>0.5</value>
-					</row>
-				</value>
-				<value variable="uSpecularExponent" for="Neck">
-					<row>
-						<value>100</value>
+						<value>0</value>
 					</row>
 				</value>
 			</itemvalues>
@@ -243,19 +230,19 @@
 				</variable>
 				<variable type="float3" name="uAlbedoColor">
 					<row>
-						<value>0</value>
-						<value>0</value>
-						<value>0</value>
+						<value>0.5</value>
+						<value>0.5</value>
+						<value>0.5</value>
 					</row>
 				</variable>
 				<variable type="float" name="uSpecularity">
 					<row>
-						<value>0</value>
+						<value>0.5</value>
 					</row>
 				</variable>
 				<variable type="float" name="uSpecularExponent">
 					<row>
-						<value>0</value>
+						<value>100</value>
 					</row>
 				</variable>
 			</variables>
@@ -272,11 +259,11 @@
 		<entry type="pinned" name="uSpecularExponent" owner="Quadrics" />
 		<entry type="camera" fp="false">
 			<distance>5</distance>
-			<pitch>15</pitch>
-			<yaw>160</yaw>
+			<pitch>2</pitch>
+			<yaw>189</yaw>
 			<roll>360</roll>
 		</entry>
-		<entry type="clearcolor" r="0" g="0" b="0" a="0" />
+		<entry type="clearcolor" r="0.1" g="0.1" b="0.1" a="1.0" />
 		<entry type="usealpha" val="false" />
 	</settings>
 	<plugindata />
