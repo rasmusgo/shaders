@@ -15,6 +15,7 @@
 					<height>1</height>
 					<depth>1</depth>
 					<x>0.5</x>
+					<y>0.00999999978</y>
 					<topology>TriangleList</topology>
 				</item>
 				<item name="Inverted sphere" type="geometry">
@@ -23,6 +24,7 @@
 					<height>1</height>
 					<depth>1</depth>
 					<x>0.5</x>
+					<y>0.00999999978</y>
 					<topology>TriangleList</topology>
 				</item>
 				<item name="Base" type="geometry">
@@ -30,9 +32,9 @@
 					<width>1</width>
 					<height>1</height>
 					<depth>1</depth>
-					<scaleX>0.3</scaleX>
+					<scaleX>0.200000003</scaleX>
 					<scaleY>2</scaleY>
-					<scaleZ>0.3</scaleZ>
+					<scaleZ>0.200000003</scaleZ>
 					<x>-0.5</x>
 					<y>-0.5</y>
 					<topology>TriangleList</topology>
@@ -42,9 +44,9 @@
 					<width>1</width>
 					<height>1</height>
 					<depth>1</depth>
-					<scaleX>0.3</scaleX>
+					<scaleX>0.200000003</scaleX>
 					<scaleY>2</scaleY>
-					<scaleZ>0.3</scaleZ>
+					<scaleZ>0.200000003</scaleZ>
 					<x>-0.5</x>
 					<y>-0.5</y>
 					<topology>TriangleList</topology>
@@ -100,14 +102,14 @@
 				</value>
 				<value variable="uAlbedoColor" for="Inverted sphere">
 					<row>
-						<value>0.1</value>
-						<value>0.1</value>
-						<value>0.1</value>
+						<value>0.100000001</value>
+						<value>0.100000001</value>
+						<value>0.100000001</value>
 					</row>
 				</value>
 				<value variable="uSpecularity" for="Inverted sphere">
 					<row>
-						<value>0.1</value>
+						<value>0.100000001</value>
 					</row>
 				</value>
 				<value variable="uSpecularExponent" for="Inverted sphere">
@@ -245,6 +247,10 @@
 						<value>100</value>
 					</row>
 				</variable>
+				<variable type="float2" name="uResolution" system="ViewportSize" />
+				<variable type="float3" name="uCamPos" system="CameraPosition3" />
+				<variable type="float3" name="uCamDir" system="CameraDirection3" />
+				<variable type="float4x4" name="uCam" system="View" />
 			</variables>
 			<macros />
 		</pass>
@@ -252,18 +258,13 @@
 	<objects />
 	<cameras />
 	<settings>
-		<entry type="pinned" name="uSurfaceID" owner="Quadrics" />
-		<entry type="pinned" name="uBoundsID" owner="Quadrics" />
-		<entry type="pinned" name="uAlbedoColor" owner="Quadrics" />
-		<entry type="pinned" name="uSpecularity" owner="Quadrics" />
-		<entry type="pinned" name="uSpecularExponent" owner="Quadrics" />
 		<entry type="camera" fp="false">
 			<distance>5</distance>
-			<pitch>2</pitch>
-			<yaw>189</yaw>
+			<pitch>5</pitch>
+			<yaw>198</yaw>
 			<roll>360</roll>
 		</entry>
-		<entry type="clearcolor" r="0.1" g="0.1" b="0.1" a="1.0" />
+		<entry type="clearcolor" r="0.100000001" g="0.100000001" b="0.100000001" a="1" />
 		<entry type="usealpha" val="false" />
 	</settings>
 	<plugindata />

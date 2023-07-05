@@ -8,8 +8,10 @@ uniform vec3 uAlbedoColor = vec3(0.5, 0.5, 0.5);
 uniform float uSpecularity = 0.5;
 uniform float uSpecularExponent = 100;
 
-in vec4 rayOrigin;
-in vec4 rayDir;
+uniform vec2 uResolution;
+uniform vec3 uCamPos;
+uniform vec3 uCamDir;
+uniform mat4 uCam;
 
 out vec4 outColor;
 
@@ -144,13 +146,32 @@ vec3 torusNormal( in vec3 pos, vec2 tor )
     return normalize( pos*(dot(pos,pos)-tor.y*tor.y - tor.x*tor.x*vec3(1.0,1.0,-1.0)));
 }
 
+mat3 setCamera( in vec3 ro, in vec3 ta, float cr )
+{
+    vec3 cw = normalize(ta-ro);
+    vec3 cp = vec3(sin(cr), cos(cr),0.0);
+    vec3 cu = normalize( cross(cw,cp) );
+    vec3 cv = normalize( cross(cu,cw) );
+    return mat3( cu, cv, cw );
+}
+
 void main()
 {
     vec2 torus = vec2(0.25, 0.05);
 
+	vec4 p = inverse(matVP * matGeo) * vec4(
+        (2.0*gl_FragCoord.x - uResolution.x)/uResolution.x,
+        (2.0*gl_FragCoord.y - uResolution.y)/uResolution.y,
+        1,
+        1);
+	vec4 c = inverse(matVP * matGeo) * vec4(0, 0, 0, 1);
+
     // Find ray-torus intersection, if any
-    vec3 ro = rayOrigin.xyz / rayOrigin.w;
-    vec3 rd = normalize(rayDir.xyz);
+    vec4 ro4 = inverse(matGeo) * vec4(uCamPos, 1);
+    vec3 ro = ro4.xyz / ro4.w;
+
+    vec3 rd = normalize( p.xyz / p.w - ro );
+
     float t = torusIntersect(ro, rd, torus);
 
     // Discard stuff behind us
@@ -188,4 +209,5 @@ void main()
         lightColor1 * pow(max(0.0, dot(reflectionDIr, lightDir1)), uSpecularExponent) +
         lightColor2 * pow(max(0.0, dot(reflectionDIr, lightDir2)), uSpecularExponent) +
         ambientColor), 1.0);
+    // outColor = vec4(hitPoint.xyz * 0.5 + 0.5, 1.0);
 }
