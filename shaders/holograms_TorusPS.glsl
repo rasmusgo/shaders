@@ -57,7 +57,7 @@ float torusIntersect( in vec3 ro, in vec3 rd, in vec2 tor )
     float k1 = k*n + Ra2*ro.z*rd.z;
     float k0 = k*k + Ra2*ro.z*ro.z - Ra2*ra2;
 
-    #if 1
+#if 1
     // prevent |c1| from being too close to zero
     if( abs(k3*(k3*k3 - k2) + k1) < 0.01 )
     {
@@ -68,7 +68,7 @@ float torusIntersect( in vec3 ro, in vec3 rd, in vec2 tor )
         k2 = k2*k0;
         k3 = k3*k0;
     }
-        #endif
+#endif
 
     float c2 = 2.0*k2 - 3.0*k3*k3;
     float c1 = k3*(k3*k3 - k2) + k1;
@@ -116,6 +116,7 @@ float torusIntersect( in vec3 ro, in vec3 rd, in vec2 tor )
     //----------------------------------
 
     float result = 1e20;
+    mat4 boundsQ = quadrics[uBoundsID];
 
     h = d1*d1 - z + d2;
     if( h > 0.0 )
@@ -123,8 +124,12 @@ float torusIntersect( in vec3 ro, in vec3 rd, in vec2 tor )
         h = sqrt(h);
         float t1 = -d1 - h - k3; t1 = (po<0.0)?2.0/t1:t1;
         float t2 = -d1 + h - k3; t2 = (po<0.0)?2.0/t2:t2;
-        if( t1 > 0.0 ) result=t1;
-        if( t2 > 0.0 ) result=min(result,t2);
+        vec4 hitPoint1 = vec4(ro + rd * t1, 1.0);
+        float boundsValue1 = dot(hitPoint1, boundsQ * hitPoint1);
+        vec4 hitPoint2 = vec4(ro + rd * t2, 1.0);
+        float boundsValue2 = dot(hitPoint2, boundsQ * hitPoint2);
+        if( t1 > 0.0 && boundsValue1 <= 0.0 ) result=t1;
+        if( t2 > 0.0 && boundsValue2 <= 0.0 ) result=min(result,t2);
     }
 
     h = d1*d1 - z - d2;
@@ -133,8 +138,12 @@ float torusIntersect( in vec3 ro, in vec3 rd, in vec2 tor )
         h = sqrt(h);
         float t1 = d1 - h - k3;  t1 = (po<0.0)?2.0/t1:t1;
         float t2 = d1 + h - k3;  t2 = (po<0.0)?2.0/t2:t2;
-        if( t1 > 0.0 ) result=min(result,t1);
-        if( t2 > 0.0 ) result=min(result,t2);
+        vec4 hitPoint1 = vec4(ro + rd * t1, 1.0);
+        float boundsValue1 = dot(hitPoint1, boundsQ * hitPoint1);
+        vec4 hitPoint2 = vec4(ro + rd * t2, 1.0);
+        float boundsValue2 = dot(hitPoint2, boundsQ * hitPoint2);
+        if( t1 > 0.0 && boundsValue1 <= 0.0 ) result=min(result,t1);
+        if( t2 > 0.0 && boundsValue2 <= 0.0 ) result=min(result,t2);
     }
 
     return result;
@@ -165,22 +174,13 @@ void main()
 
     float t = torusIntersect(ro, rd, torus);
 
-    // Discard stuff behind us
-    if (t < -0.0) {
+    // Discard missed rays
+    if (t < -0.0 || t >= 1e20) {
         discard;
     }
 
     // Find the hit point in local space
     vec4 hitPoint = vec4(ro + rd * t, 1.0);
-
-    // Use quadric bounds.
-    mat4 boundsQ = quadrics[uBoundsID];
-    float boundsValue = dot(hitPoint, boundsQ * hitPoint);
-
-    // Discard fragments that are out of bounds
-    if (boundsValue > 0.0) {
-        discard;
-    }
 
     // Compute depth
     vec4 v_clip_coord = matVP * matGeo * hitPoint;
@@ -189,6 +189,7 @@ void main()
 
     // Compute normal
     vec3 normal = torusNormal(hitPoint.xyz, torus);
+    normal = normalize(normal + 0.1 * sin(hitPoint.xyz * 20.0 * 6.28318530718));
     vec3 reflectionDIr = normalize(reflect(rd, normal));
 
     // Use the normal for coloring
